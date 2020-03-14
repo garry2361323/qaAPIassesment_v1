@@ -6,20 +6,31 @@ import com.freenow.qa.util.file.PropertiesUtils;
 
 public class GetEnvURL {
 
-    static String envName = PropertiesUtils.readProperty(PropertiesUtils.environment);
+    private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
+    static String envName = propertiesUtilsInstance.readProperty(propertiesUtilsInstance.environment);
+    private static JsonUtil jsonUtilInstance = JsonUtil.getInstance();
+    private static GetEnvURL getEnvURLInstance = null;
 
-    public static String getBaseUrl() {
+    public static GetEnvURL getInstance() {
+
+        if (getEnvURLInstance == null)
+            getEnvURLInstance = new GetEnvURL();
+
+        return getEnvURLInstance;
+    }
+
+    public String getBaseUrl() {
         String serviceBaseUrl = null;
 
         switch (envName) {
             case "QA":
-                serviceBaseUrl = JsonUtil.readConfigValue(PropertiesUtils.configFilePath, JsonUtil.baseURIQA);
+                serviceBaseUrl = jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath, jsonUtilInstance.baseURIQA);
                 break;
             case "UAT":
-                serviceBaseUrl = JsonUtil.readConfigValue(PropertiesUtils.configFilePath, JsonUtil.baseURIUAT);
+                serviceBaseUrl = jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath, jsonUtilInstance.baseURIUAT);
                 break;
             default:
-                serviceBaseUrl = JsonUtil.readConfigValue(PropertiesUtils.configFilePath, JsonUtil.baseURIQA);
+                serviceBaseUrl = jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath, jsonUtilInstance.baseURIQA);
                 break;
         }
 

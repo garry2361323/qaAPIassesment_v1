@@ -11,20 +11,24 @@ public class PostsAPI {
 
     private static String endpointUsers;
     private static Response response = null;
-    private static RestUtil restUtil = RestUtil.getInstance();
+    private static RestUtil restUtils = RestUtil.getInstance();
     private static TestUtil testUtilInstance = TestUtil.getInstance();
+    private static JsonUtil jsonUtilInstance = JsonUtil.getInstance();
+    private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
+    private static GetEnvURL getEnvURLInstance = GetEnvURL.getInstance();
 
     static {
-        endpointUsers = GetEnvURL.getBaseUrl() + JsonUtil.readConfigValue(PropertiesUtils.configFilePath, JsonUtil.postsEndpoint);
+        endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
+                jsonUtilInstance.postsEndpoint);
     }
 
     public static void getPosts() {
-        response = restUtil.sendGetRequest(endpointUsers);
+        response = restUtils.sendGetRequest(endpointUsers);
 
     }
 
     public static void getPostById(int id) {
-        response = restUtil.sendGetRequestById(endpointUsers, id);
+        response = restUtils.sendGetRequestById(endpointUsers, id);
     }
 
     public static void validateStatusCode(int statusCode) {

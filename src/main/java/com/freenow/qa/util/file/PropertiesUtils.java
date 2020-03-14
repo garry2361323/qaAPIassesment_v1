@@ -6,16 +6,24 @@ import java.util.Properties;
 
 public class PropertiesUtils {
 
+    private static PropertiesUtils propertiesUtilsInstance = null;
     //file path
-    public static String envPropFilePath = "../qaAPIassesment_v1/src/test/resources/common.properties";
-    public static String configFilePath = "configFilePath";
-    public static String extentConfigPath = "extentConfigPath";
-
+    public String envPropFilePath = "../qaAPIassesment_v1/src/test/resources/common.properties";
+    public String configFilePath = "configFilePath";
+    public String extentConfigPath = "extentConfigPath";
     //properties in environment.properties file
-    public static String environment = "environment";
+    public String environment = "environment";
+
+    public static PropertiesUtils getInstance() {
+
+        if (propertiesUtilsInstance == null)
+            propertiesUtilsInstance = new PropertiesUtils();
+
+        return propertiesUtilsInstance;
+    }
 
     // read property value from properties file
-    public static String readProperty(String propertyName) {
+    public String readProperty(String propertyName) {
         String propertyValue = null;
         try {
             FileInputStream fis = new FileInputStream(new File(envPropFilePath));

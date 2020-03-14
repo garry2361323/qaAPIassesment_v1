@@ -13,6 +13,7 @@ public class RestUtil {
     private static Response response = null;
     private static RestUtil apiUtilsInstance = null;
     private RequestSpecification request;
+    private static final LogUtils LOGGER = LogUtils.getInstance(RestUtil.class);
 
     public static RestUtil getInstance() {
 
@@ -40,7 +41,8 @@ public class RestUtil {
         request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
         request.log().all();
         response = request.get(resourcePath);
-
+        LOGGER.info("Id : " + id);
+        LOGGER.code("GET Response :" + response.getBody().prettyPrint());
         System.out.println("Response Header and Body is: " + "\n" + response.getHeaders());
         System.out.println("Response Body is: " + "\n" + response.getBody().prettyPrint());
         return response;

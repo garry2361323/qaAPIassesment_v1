@@ -13,9 +13,13 @@ public class CommentsAPI {
     private static Response response = null;
     private static RestUtil restUtils = RestUtil.getInstance();
     private static TestUtil testUtilInstance = TestUtil.getInstance();
+    private static JsonUtil jsonUtilInstance = JsonUtil.getInstance();
+    private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
+    private static GetEnvURL getEnvURLInstance = GetEnvURL.getInstance();
 
     static {
-        endpointUsers = GetEnvURL.getBaseUrl() + JsonUtil.readConfigValue(PropertiesUtils.configFilePath, JsonUtil.commentsEndpoint);
+        endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
+                jsonUtilInstance.commentsEndpoint);
     }
 
     public static void getComments() {
