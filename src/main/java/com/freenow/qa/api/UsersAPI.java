@@ -31,6 +31,18 @@ public class UsersAPI {
         response = restUtilsInstance.sendGetRequestById(endpointUsers, id);
     }
 
+    public static void doUserPost() {
+        response = restUtilsInstance.sendPostRequest(endpointUsers);
+    }
+
+    public static void doUserPut() {
+        response = restUtilsInstance.sendPutRequest(endpointUsers);
+    }
+
+    public static void doUserDelete() {
+        response = restUtilsInstance.sendDeleteRequest(endpointUsers);
+    }
+
     public static void validateStatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
     }

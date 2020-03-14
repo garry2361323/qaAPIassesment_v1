@@ -29,9 +29,6 @@ public class RestUtil {
         request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
         request.log().all();
         response = request.get(resourcePath);
-
-        System.out.println("Response Header and Body is: " + "\n" + response.getHeaders());
-        System.out.println("Response Body is: " + "\n" + response.getBody().prettyPrint());
         return response;
     }
 
@@ -41,10 +38,37 @@ public class RestUtil {
         request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
         request.log().all();
         response = request.get(resourcePath);
+
         LOGGER.info("Id : " + id);
         LOGGER.code("GET Response :" + response.getBody().prettyPrint());
-        System.out.println("Response Header and Body is: " + "\n" + response.getHeaders());
-        System.out.println("Response Body is: " + "\n" + response.getBody().prettyPrint());
+
+        return response;
+    }
+
+    public Response sendPostRequest(String resourcePath) {
+        request = RestAssured.given();
+
+        request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
+        request.log().all();
+        response = request.post(resourcePath);
+        return response;
+    }
+
+    public Response sendPutRequest(String resourcePath) {
+        request = RestAssured.given();
+
+        request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
+        request.log().all();
+        response = request.put(resourcePath);
+        return response;
+    }
+
+    public Response sendDeleteRequest(String resourcePath) {
+        request = RestAssured.given();
+
+        request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
+        request.log().all();
+        response = request.delete(resourcePath);
         return response;
     }
 
