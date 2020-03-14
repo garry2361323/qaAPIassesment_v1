@@ -1,13 +1,12 @@
 {
   "config": {
     "baseURI": {
-      "QA" : "https://jsonplaceholder.typicode.com",
-      "UAT" : "https://jsonplaceholder.typicode.com"
+      "QA": "https://jsonplaceholder.typicode.com",
+      "UAT": "https://jsonplaceholder.typicode.com"
     },
-
     "endpoints": {
-      "users"   : "/users",
-      "posts"   : "/posts",
+      "users": "/users",
+      "posts": "/posts",
       "comments": "/comments"
     }
   }
