@@ -87,7 +87,7 @@ public class LogUtils {
         logger.error("FAIL" + " " + currentTime + ": " + message);
         writeToLogFile("FAIL" + " " + currentTime + ": " + message);
         writeToLogFile("CODE-END");
-        throw new TestFailedException(message + ". Test step failed..");
+        throw new TestFailedExceptionUtil(message + ". Test step failed..");
 
 
     }

@@ -3,9 +3,9 @@ package com.freenow.qa.util.common;
 /**
  * This class provides a custom RuntimeException
  */
-public class TestFailedException extends RuntimeException {
+public class TestFailedExceptionUtil extends RuntimeException {
 
-    public TestFailedException(String s) {
+    public TestFailedExceptionUtil(String s) {
         // Call constructor of parent Exception
         super(s);
     }

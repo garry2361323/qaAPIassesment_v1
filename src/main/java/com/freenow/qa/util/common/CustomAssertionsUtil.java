@@ -2,13 +2,13 @@ package com.freenow.qa.util.common;
 
 import org.testng.Assert;
 
-public class CustomAssertions {
-    private static CustomAssertions assertInstance = null;
+public class CustomAssertionsUtil {
+    private static CustomAssertionsUtil assertInstance = null;
 
-    public static CustomAssertions getInstance() {
+    public static CustomAssertionsUtil getInstance() {
 
         if (assertInstance == null)
-            assertInstance = new CustomAssertions();
+            assertInstance = new CustomAssertionsUtil();
 
         return assertInstance;
     }

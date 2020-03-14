@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import java.util.Arrays;
 
 public class TestUtil {
-    private static CustomAssertions assertions = CustomAssertions.getInstance();
+    private static CustomAssertionsUtil assertions = CustomAssertionsUtil.getInstance();
     private static TestUtil testUtilInstance = null;
     private static final LogUtils LOGGER = LogUtils.getInstance(TestUtil.class);
 
