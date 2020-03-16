@@ -5,5 +5,4 @@ import org.testng.ITestNGListener;
 
 public class ExtentReportListener implements ITestNGListener {
 
-
 }

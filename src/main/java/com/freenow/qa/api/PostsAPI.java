@@ -30,8 +30,8 @@ public class PostsAPI {
 
     }
 
-    public static void getPostById(int id) {
-        response = restUtilsInstance.sendGetRequestById(endpointUsers, id);
+    public static void getPostByParam(String paramName, String paramValue) {
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramName, paramValue);
     }
 
     public static void doPostPost() {

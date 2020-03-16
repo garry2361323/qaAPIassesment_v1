@@ -1,10 +1,9 @@
 package com.freenow.qa.util.file;
 
-import com.freenow.qa.util.common.RestUtil;
-import com.freenow.qa.util.common.TestUtil;
 import io.restassured.path.json.JsonPath;
 
 import java.io.File;
+import java.util.List;
 
 public class JsonUtil {
 
@@ -34,4 +33,9 @@ public class JsonUtil {
         return configValue;
     }
 
+    public List<String> readTestData(String fileName, String jsonPath) {
+        File jsonFile = new File(System.getProperty("user.dir") + "/src/main/java/com/freenow/qa/testdata/" + fileName + ".json");
+        List<String> valueList = JsonPath.with(jsonFile).get(jsonPath);
+        return valueList;
+    }
 }

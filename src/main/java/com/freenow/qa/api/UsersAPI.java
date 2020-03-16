@@ -31,6 +31,10 @@ public class UsersAPI {
         response = restUtilsInstance.sendGetRequestById(endpointUsers, id);
     }
 
+    public static void getUserByParam(String paramName, String paramValue) {
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramName, paramValue);
+    }
+
     public static void doUserPost() {
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }

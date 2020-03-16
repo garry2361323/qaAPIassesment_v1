@@ -45,6 +45,19 @@ public class RestUtil {
         return response;
     }
 
+    public Response sendGetRequestByParam(String resourcePath, String paramName, String paramValue) {
+        RequestSpecification request = RestAssured.given();
+        request.param(paramName, paramValue);
+        request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
+        request.log().all();
+        response = request.get(resourcePath);
+
+        LOGGER.info(paramName + paramValue);
+        LOGGER.code("GET Response :" + response.getBody().prettyPrint());
+
+        return response;
+    }
+
     public Response sendPostRequest(String resourcePath) {
         request = RestAssured.given();
 

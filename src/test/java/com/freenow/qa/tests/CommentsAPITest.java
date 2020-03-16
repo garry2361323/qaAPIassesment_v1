@@ -2,6 +2,8 @@ package com.freenow.qa.tests;
 
 import com.freenow.qa.api.CommentsAPI;
 import com.freenow.qa.constants.Constants;
+import com.freenow.qa.listeners.RetryListener;
+import com.freenow.qa.testdata.TestData;
 import com.freenow.qa.util.common.LogUtils;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -13,10 +15,11 @@ import java.lang.reflect.Method;
 public class CommentsAPITest {
 
     private LogUtils LOGGER = LogUtils.getInstance(CommentsAPITest.class);
+    private TestData testDataInstance = TestData.getInstance();
 
-    @DataProvider(name = "getTestData")
-    public Object[][] dataProviderMethod() {
-        return new Object[][]{{1}, {2}};
+    @DataProvider
+    public Object[] dataProviderMethod(Method method) {
+        return testDataInstance.getTestData(method).toArray();
     }
 
     @BeforeMethod
@@ -25,34 +28,42 @@ public class CommentsAPITest {
     }
 
 
-    @Test
+    @Test(description = "Verify that user is able to get list of all comments", groups = {"sanity"})
     public void getComments() {
         CommentsAPI.getComments();
     }
 
 
-    @Test(dataProvider = "getTestData")
-    public void getCommentById(int id) {
-        CommentsAPI.getCommentById(id);
+    @Test(dataProvider = "dataProviderMethod", groups = {"sanity"})
+    public void getCommentById(String paramValue) {
+        CommentsAPI.getCommentByParam("id", paramValue);
         CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_200);
     }
 
+    @Test(dataProvider = "dataProviderMethod",
+            description = "Verify status code 204 is received, when user provides invalid id",
+            retryAnalyzer = RetryListener.class,
+            groups = {"negative"})
+    public void getCommentByInvalidId(String paramValue) {
+        CommentsAPI.getCommentByParam("id", paramValue);
+        CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_204);
+    }
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'POST'")
+    @Test(description = "Verify status code 405 is received, when user provides request Type as 'POST'", groups = {"negative"})
     public void doCommentPost() {
         CommentsAPI.doCommentPost();
         CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'PUT'")
+    @Test(description = "Verify status code 405 is received, when user provides request Type as 'PUT'", groups = {"negative"})
     public void doCommentPut() {
         CommentsAPI.doCommentPut();
         CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'DELETE'")
+    @Test(description = "Verify status code 405 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
     public void doCommentDelete() {
         CommentsAPI.doCommentDelete();
         CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);

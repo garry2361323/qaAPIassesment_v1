@@ -34,6 +34,10 @@ public class CommentsAPI {
         response = restUtilsInstance.sendGetRequestById(endpointUsers, id);
     }
 
+    public static void getCommentByParam(String paramName, String paramValue) {
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramName, paramValue);
+    }
+
     public static void validateStatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
     }
