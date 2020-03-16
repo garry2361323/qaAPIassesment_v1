@@ -3,7 +3,11 @@ package com.freenow.qa.util.common;
 
 import com.freenow.qa.util.file.JsonUtil;
 import com.freenow.qa.util.file.PropertiesUtils;
-
+/***
+ * This is a utility class to fetch environment details in runtime from file common.properties
+ *
+ * @author Gaurav Sharma
+ */
 public class GetEnvURL {
 
     private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();

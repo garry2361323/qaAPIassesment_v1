@@ -28,7 +28,7 @@ public class JsonUtil {
     //fetch config value
     public String readConfigValue(String filename, String configJsonPath) {
         String configValue = null;
-        File jsonFile = new File(propertiesUtilsInstance.readProperty(filename));
+        File jsonFile = new File(System.getProperty("user.dir") + propertiesUtilsInstance.readProperty(filename));
         configValue = JsonPath.with(jsonFile).get(configJsonPath);
         return configValue;
     }

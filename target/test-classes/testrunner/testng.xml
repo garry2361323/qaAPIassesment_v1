@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="FreeNow Test Suite" >
+<suite name="FreeNow Test Suite">
     <groups>
         <run>
             <exclude name="negative"/>
             <include name="sanity"/>
+            <include name="e2e"/>
         </run>
     </groups>
     <listeners>
@@ -13,9 +14,10 @@
     <test verbose="2" preserve-order="true"
           name="FreeNow Test Cases">
         <classes>
-            <class name="com.freenow.qa.tests.UserAPITest"></class>
-            <class name="com.freenow.qa.tests.PostsAPITest"></class>
-            <class name="com.freenow.qa.tests.CommentsAPITest"></class>
+<!--            <class name="com.freenow.qa.tests.UserAPITest"></class>-->
+<!--            <class name="com.freenow.qa.tests.PostsAPITest"></class>-->
+<!--            <class name="com.freenow.qa.tests.CommentsAPITest"></class>-->
+            <class name="com.freenow.qa.tests.EndToEndTest"></class>
         </classes>
     </test>
 </suite>

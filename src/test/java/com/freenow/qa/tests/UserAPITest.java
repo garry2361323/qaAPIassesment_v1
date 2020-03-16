@@ -15,17 +15,11 @@ import java.lang.reflect.Method;
 
 public class UserAPITest {
 
-    private LogUtils LOGGER = LogUtils.getInstance(UserAPITest.class);
     private TestData testDataInstance = TestData.getInstance();
 
     @DataProvider
     public Object[] dataProviderMethod(Method method) {
         return testDataInstance.getTestData(method).toArray();
-    }
-
-    @BeforeMethod
-    public void initialize(Method method) {
-        LOGGER.start("Starting Test : " + method.getName());
     }
 
 
@@ -56,10 +50,11 @@ public class UserAPITest {
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify status code 204 is received, when user provides invalid id",
             retryAnalyzer = RetryListener.class,
-            groups = {"negative"})
+            groups = {"sanity"})
     public void getUserByInvalidId(String paramValue) {
         UsersAPI.getUserByParam("id", paramValue);
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_204);
+        UsersAPI.validateBlankResponse();
+        //   UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_204);
     }
 
 
@@ -83,9 +78,4 @@ public class UserAPITest {
         UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
     }
 
-
-    @AfterMethod
-    public void resetInstance() {
-        UsersAPI.resetRestAssured();
-    }
 }

@@ -8,6 +8,13 @@ import com.freenow.qa.util.file.JsonUtil;
 import com.freenow.qa.util.file.PropertiesUtils;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
+
+/***
+ * This class provides various methods for Post API
+ *
+ * @author Gaurav Sharma
+ */
 public class PostsAPI {
 
     private static String endpointUsers;
@@ -30,27 +37,31 @@ public class PostsAPI {
 
     }
 
-    public static void getPostByParam(String paramName, String paramValue) {
-        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramName, paramValue);
+
+    public static Response getPostByParam(String paramName, String paramValue) {
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(paramName, paramValue);
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
+        return response;
     }
+
 
     public static void doPostPost() {
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }
 
+
     public static void doPostPut() {
         response = restUtilsInstance.sendPutRequest(endpointUsers);
     }
+
 
     public static void doPostDelete() {
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);
     }
 
+
     public static void validateStatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
-    }
-
-    public static void resetRestAssured() {
-        restUtilsInstance.resetRestAssured();
     }
 }

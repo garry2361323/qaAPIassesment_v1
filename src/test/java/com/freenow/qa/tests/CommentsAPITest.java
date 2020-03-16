@@ -14,17 +14,11 @@ import java.lang.reflect.Method;
 
 public class CommentsAPITest {
 
-    private LogUtils LOGGER = LogUtils.getInstance(CommentsAPITest.class);
     private TestData testDataInstance = TestData.getInstance();
 
     @DataProvider
     public Object[] dataProviderMethod(Method method) {
         return testDataInstance.getTestData(method).toArray();
-    }
-
-    @BeforeMethod
-    public void initialize(Method method) {
-        LOGGER.start("Starting Test : " + method.getName());
     }
 
 
@@ -37,6 +31,12 @@ public class CommentsAPITest {
     @Test(dataProvider = "dataProviderMethod", groups = {"sanity"})
     public void getCommentById(String paramValue) {
         CommentsAPI.getCommentByParam("id", paramValue);
+        CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_200);
+    }
+
+    @Test(dataProvider = "dataProviderMethod", groups = {"sanity"})
+    public void getCommentByPostId(String paramValue) {
+        CommentsAPI.getCommentByParam("postId", paramValue);
         CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_200);
     }
 
@@ -67,12 +67,6 @@ public class CommentsAPITest {
     public void doCommentDelete() {
         CommentsAPI.doCommentDelete();
         CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
-    }
-
-
-    @AfterMethod
-    public void resetInstance() {
-        CommentsAPI.resetRestAssured();
     }
 
 }

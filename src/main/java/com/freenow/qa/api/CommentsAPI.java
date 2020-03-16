@@ -8,6 +8,13 @@ import com.freenow.qa.util.file.JsonUtil;
 import com.freenow.qa.util.file.PropertiesUtils;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
+
+/***
+ * This class provides methods for Comments API
+ *
+ * @author Gaurav Sharma
+ */
 public class CommentsAPI {
 
     private static String endpointUsers;
@@ -27,32 +34,31 @@ public class CommentsAPI {
 
     public static void getComments() {
         response = restUtilsInstance.sendGetRequest(endpointUsers);
-
     }
 
-    public static void getCommentById(int id) {
-        response = restUtilsInstance.sendGetRequestById(endpointUsers, id);
+
+    public static Response getCommentByParam(String paramName, String paramValue) {
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(paramName, paramValue);
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
+        return response;
     }
 
-    public static void getCommentByParam(String paramName, String paramValue) {
-        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramName, paramValue);
-    }
 
     public static void validateStatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
     }
 
-    public static void resetRestAssured() {
-        restUtilsInstance.resetRestAssured();
-    }
 
     public static void doCommentPost() {
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }
 
+
     public static void doCommentPut() {
         response = restUtilsInstance.sendPutRequest(endpointUsers);
     }
+
 
     public static void doCommentDelete() {
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);

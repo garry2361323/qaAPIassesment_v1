@@ -2,10 +2,15 @@ package com.freenow.qa.testdata;
 
 
 import com.freenow.qa.util.file.JsonUtil;
-
 import java.lang.reflect.Method;
 import java.util.List;
-
+/***
+ * Class to provide test data using TestNG DataProvider
+ *It reads data from testData.json located at path src/main/java/com/freenow/qa/testdata/
+ * The test data is fetched based on test method name on run-time
+ *
+ * @author Gaurav Sharma
+ */
 public class TestData {
 
     private static TestData testDataInstance = null;
@@ -30,6 +35,7 @@ public class TestData {
                 break;
 
             case "getUserByUserName":
+            case "executeE2ETest":
                 TestData = jsonUtilInstance.readTestData("testdata", "User.username");
                 break;
 

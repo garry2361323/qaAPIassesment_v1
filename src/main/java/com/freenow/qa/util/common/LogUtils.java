@@ -9,6 +9,11 @@ import java.util.Date;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+/**
+ * This utility class provides instance of LogUtils for Logging capabilities
+ *
+ * @author Gaurav Sharma
+ */
 
 public class LogUtils {
     private static LogUtils logUtilsInstance = null;
@@ -32,6 +37,7 @@ public class LogUtils {
 
     }
 
+
     public static LogUtils getInstance(Class<?> ClassName) {
 
         if (logUtilsInstance == null)
@@ -39,6 +45,7 @@ public class LogUtils {
 
         return logUtilsInstance;
     }
+
 
     public void info(String message) {
 
@@ -52,6 +59,7 @@ public class LogUtils {
 
     }
 
+
     public void start(String message) {
 
         Calendar cal = Calendar.getInstance();
@@ -63,6 +71,7 @@ public class LogUtils {
         writeToLogFile("START" + " " + currentTime + ": " + message);
 
     }
+
 
     public void code(String message) {
 
@@ -76,6 +85,7 @@ public class LogUtils {
         writeToLogFile("CODE-END");
 
     }
+
 
     public void fail(String message) {
 
@@ -91,6 +101,20 @@ public class LogUtils {
 
 
     }
+
+
+    public void error(String message) {
+
+        Calendar cal = Calendar.getInstance();
+        Date currentTime = cal.getTime();
+
+        Logger.getRootLogger().setLevel(Level.ERROR);
+
+        logger.error("ERROR" + " " + currentTime + ": " + message);
+        writeToLogFile("ERROR" + " " + currentTime + ": " + message);
+
+    }
+
 
     public void writeToLogFile(String content) {
 
@@ -114,6 +138,7 @@ public class LogUtils {
         }
 
     }
+
 
     public void logSetup() {
 

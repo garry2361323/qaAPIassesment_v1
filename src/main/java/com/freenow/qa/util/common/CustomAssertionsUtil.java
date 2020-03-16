@@ -1,9 +1,18 @@
 package com.freenow.qa.util.common;
 
 import org.testng.Assert;
-
+/***
+ * This class provides a wrapper around TestNG assertions; with logging
+ *
+ * @author Gaurav Sharma
+ */
 public class CustomAssertionsUtil {
     private static CustomAssertionsUtil assertInstance = null;
+    private LogUtils LOGGER;
+
+    private CustomAssertionsUtil() {
+        LOGGER = LogUtils.getInstance(CustomAssertionsUtil.class);
+    }
 
     public static CustomAssertionsUtil getInstance() {
 
@@ -19,8 +28,22 @@ public class CustomAssertionsUtil {
 
         } catch (AssertionError e) {
 
-            //   LOGGER.error(message + " : " + e);
+            LOGGER.error(message + " : " + e);
             Assert.fail(e.getMessage());
         }
+    }
+
+    public void assertTrue(boolean condition, String message) {
+
+        try {
+            Assert.assertTrue(condition, message);
+
+        } catch (AssertionError e) {
+
+            LOGGER.error(message + " : " + e);
+            Assert.fail(e.getMessage());
+
+        }
+
     }
 }

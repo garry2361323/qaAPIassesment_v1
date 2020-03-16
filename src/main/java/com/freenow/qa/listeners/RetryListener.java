@@ -4,7 +4,12 @@ import com.freenow.qa.constants.Constants;
 import com.freenow.qa.util.common.LogUtils;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-
+/***
+ * Retrylistener class used to provide retrial mechanism for failed tests
+ *MAX_NUM_OF_RETRY can be set to desired number for retrial
+ *
+ * @author Gaurav Sharma
+ */
 public class RetryListener implements IRetryAnalyzer {
 
     private int count = 0;
@@ -12,18 +17,27 @@ public class RetryListener implements IRetryAnalyzer {
 
     @Override
     public boolean retry(ITestResult iTestResult) {
-        if (!iTestResult.isSuccess()) {                         //Check if test not succeed
+        //Check if test not succeed
+        if (!iTestResult.isSuccess()) {
             LOGGER.info("Test case failed: Retrying for " + Constants.MAX_NUM_OF_RETRY + " times");
-            if (count < Constants.MAX_NUM_OF_RETRY) {                               //Check if maxtry count is reached
-                count++;                                        //Increase the maxTry count by 1
+
+            //Check if maxtry count is reached
+            if (count < Constants.MAX_NUM_OF_RETRY) {
+                count++;
                 LOGGER.info(count + "...");
-                iTestResult.setStatus(ITestResult.FAILURE);     //Mark test as failed
-                return true;                                    //Tells TestNG to re-run the test
+
+                //Mark test as failed
+                iTestResult.setStatus(ITestResult.FAILURE);
+
+                //Tells TestNG to re-run the test
+                return true;
             } else {
-                iTestResult.setStatus(ITestResult.FAILURE);  //If maxCount reached,test marked as failed
+                //If maxCount reached,test marked as failed
+                iTestResult.setStatus(ITestResult.FAILURE);
             }
         } else {
-            iTestResult.setStatus(ITestResult.SUCCESS);      //If test passes, TestNG marks it as passed
+            //If test passes, TestNG marks it as passed
+            iTestResult.setStatus(ITestResult.SUCCESS);
         }
         return false;
     }

@@ -6,6 +6,13 @@ import com.freenow.qa.util.file.JsonUtil;
 import com.freenow.qa.util.file.PropertiesUtils;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
+
+/***
+ * This class provides various methods for Users API
+ *
+ * @author Gaurav Sharma
+ */
 public class UsersAPI {
 
     private static String endpointUsers;
@@ -27,31 +34,36 @@ public class UsersAPI {
         response = restUtilsInstance.sendGetRequest(endpointUsers);
     }
 
-    public static void getUserById(int id) {
-        response = restUtilsInstance.sendGetRequestById(endpointUsers, id);
+
+    public static Response getUserByParam(String paramName, String paramValue) {
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(paramName, paramValue);
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
+        return response;
     }
 
-    public static void getUserByParam(String paramName, String paramValue) {
-        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramName, paramValue);
-    }
 
     public static void doUserPost() {
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }
 
+
     public static void doUserPut() {
         response = restUtilsInstance.sendPutRequest(endpointUsers);
     }
+
 
     public static void doUserDelete() {
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);
     }
 
+
     public static void validateStatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
     }
 
-    public static void resetRestAssured() {
-        restUtilsInstance.resetRestAssured();
+
+    public static void validateBlankResponse() {
+        testUtilInstance.checkBlankResponse(response);
     }
 }

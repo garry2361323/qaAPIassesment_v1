@@ -8,7 +8,7 @@ public class PropertiesUtils {
 
     private static PropertiesUtils propertiesUtilsInstance = null;
     //file path
-    public String envPropFilePath = "../qaAPIassesment_v1/src/test/resources/common.properties";
+    public String envPropFilePath = System.getProperty("user.dir") + "/src/test/resources/common.properties";
     public String configFilePath = "configFilePath";
     public String extentConfigPath = "extentConfigPath";
     //properties in environment.properties file
