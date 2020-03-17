@@ -1,7 +1,6 @@
 package com.freenow.qa.listeners;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.freenow.qa.util.common.ExtentUtil;
 import com.freenow.qa.util.common.LogUtils;
@@ -10,6 +9,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /***
@@ -28,6 +28,7 @@ public class ExtentReportListener implements ITestListener {
     private static RestUtil restUtilsInstance = RestUtil.getInstance();
     private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
     private static ExtentReports extentReports = initializeExtentReport();
+
 
     public static ExtentReports initializeExtentReport() {
         extentReports = extentUtilInstance.getExtentReports();
@@ -59,22 +60,21 @@ public class ExtentReportListener implements ITestListener {
         //Nullifying RestUtil Instance
         restUtilsInstance.resetRestAssured();
 
-        extentUtilInstance.getTest().log(Status.PASS, "Test passed");
+        extentUtilInstance.getTest().log(Status.PASS, "");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
 
         LOGGER.info("Test failed: " + result.getName() + "\n\n");
-        extentUtilInstance.getTest().log(Status.FAIL, "Test failed");
-
+        extentUtilInstance.getTest().log(Status.FAIL, "");
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
 
         LOGGER.info("Test skipped: " + result.getName() + "\n\n");
-        extentUtilInstance.getTest().log(Status.SKIP, "Test skipped");
+        extentUtilInstance.getTest().log(Status.SKIP, "");
 
     }
 

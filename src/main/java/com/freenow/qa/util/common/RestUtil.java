@@ -1,5 +1,8 @@
 package com.freenow.qa.util.common;
 
+import com.aventstack.extentreports.markuputils.CodeLanguage;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.freenow.qa.constants.Constants;
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
@@ -24,6 +27,7 @@ public class RestUtil {
     private static RestUtil apiUtilsInstance = null;
     private RequestSpecification request;
     private static final LogUtils LOGGER = LogUtils.getInstance(RestUtil.class);
+    private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
 
 
     public static RestUtil getInstance() {
@@ -58,7 +62,7 @@ public class RestUtil {
         if (param != null) {
             for (Map.Entry<String, String> e : param.entrySet()) {
                 request.param(e.getKey(), e.getValue());
-                LOGGER.info(e.getKey() + " : " + e.getValue());
+                LOGGER.info("With Parameter: " + e.getKey() + " = " + e.getValue());
             }
         }
         request.contentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
@@ -66,7 +70,10 @@ public class RestUtil {
         try {
             response = request.get(resourcePath);
             LOGGER.code("GET Response :" + response.getBody().prettyPrint());
-
+            Markup extentMarkup = MarkupHelper.createCodeBlock(response.getBody().prettyPrint(), CodeLanguage.JSON);
+            //Log Response JSON in extent report
+            extentUtilInstance.getTest().info("Response: ");
+            extentUtilInstance.getTest().pass(extentMarkup);
         } catch (Exception e) {
             LOGGER.info("Exception Occurred: " + e.getMessage() + ", hence skipping the test case");
             throw new SkipException("Skipping this Exception");

@@ -30,7 +30,10 @@ public class EndToEndTest {
             description = "Execute end to end scenario for fetching comments for all posts against a user(Samantha) " +
                     "and validate email ids")
     public void executeE2ETest(String paramValue) throws IOException {
-        EndToEndScenario.getUserByUsernameForE2E("username", paramValue);
+        EndToEndScenario.search_for_the_given_user_by_userName("username", paramValue);
+        EndToEndScenario.search_for_the_post_by_userId();
+        EndToEndScenario.fetch_the_comments_by_postId();
+        EndToEndScenario.validate_emailId_for_each_comment();
     }
 }
 

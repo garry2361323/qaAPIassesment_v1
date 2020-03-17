@@ -14,9 +14,9 @@
     <test verbose="2" preserve-order="true"
           name="FreeNow Test Cases">
         <classes>
-            <!--            <class name="com.freenow.qa.tests.UserAPITest"></class>-->
-            <!--            <class name="com.freenow.qa.tests.PostsAPITest"></class>-->
-            <!--            <class name="com.freenow.qa.tests.CommentsAPITest"></class>-->
+            <class name="com.freenow.qa.tests.UserAPITest"></class>
+            <class name="com.freenow.qa.tests.PostsAPITest"></class>
+            <class name="com.freenow.qa.tests.CommentsAPITest"></class>
             <class name="com.freenow.qa.tests.EndToEndTest"></class>
         </classes>
     </test>

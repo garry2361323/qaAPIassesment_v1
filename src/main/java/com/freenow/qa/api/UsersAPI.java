@@ -27,15 +27,29 @@ public class UsersAPI {
     static {
         endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
                 jsonUtilInstance.usersEndpoint);
-        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
     }
 
-    public static void getUsers() {
+
+    public static void get_All_Users() {
+
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         response = restUtilsInstance.sendGetRequest(endpointUsers);
     }
 
 
-    public static Response getUserByParam(String paramName, String paramValue) {
+    public static Response get_User_By_Id(String paramName, String paramValue) {
+
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(paramName, paramValue);
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
+        return response;
+    }
+
+
+    public static Response get_User_By_Username(String paramName, String paramValue) {
+
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);
         response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
@@ -58,12 +72,32 @@ public class UsersAPI {
     }
 
 
-    public static void validateStatusCode(int statusCode) {
+    public static void validate_Response_StatusCode(int statusCode) {
+
         testUtilInstance.checkStatusIs(response, statusCode);
     }
 
 
-    public static void validateBlankResponse() {
+    public static void validate_Blank_Response() {
+
         testUtilInstance.checkBlankResponse(response);
+    }
+
+
+    public static void validate_UserAPI_Response_Schema() {
+
+        testUtilInstance.validateResponseSchema(response, "UserAPIResponse.json");
+    }
+
+
+    public static void validate_Same_UserId_Available_In_Response(String paramValue) {
+
+        testUtilInstance.validateResponseAttributes(response, "id", Integer.parseInt(paramValue));
+    }
+
+
+    public static void validate_Same_UserName_Available_In_Response(String paramValue) {
+
+        testUtilInstance.validateResponseAttributes(response, "username", paramValue);
     }
 }

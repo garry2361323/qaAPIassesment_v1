@@ -1,11 +1,16 @@
 package com.freenow.qa.api;
 
 
+import com.aventstack.extentreports.markuputils.Markup;
 import com.freenow.qa.pojo.CommentAPIResponse;
 import com.freenow.qa.pojo.PostAPIResponse;
+import com.freenow.qa.pojo.userAPIpojo.UserAPIResponse;
+import com.freenow.qa.util.common.CustomAssertionsUtil;
+import com.freenow.qa.util.common.ExtentUtil;
 import com.freenow.qa.util.common.LogUtils;
 import com.freenow.qa.util.common.TestUtil;
 import io.restassured.response.Response;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 
@@ -22,30 +27,85 @@ public class EndToEndScenario {
 
     private static LogUtils LOGGER = LogUtils.getInstance(EndToEndScenario.class);
     private static TestUtil testUtilInstance = TestUtil.getInstance();
+    private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
+    private static CustomAssertionsUtil assertions = CustomAssertionsUtil.getInstance();
+    private static Markup extentMarkup = null;
+    private static String userId;
+    private static ArrayList<Integer> postIdList = new ArrayList<Integer>();
+    private static ArrayList<String> emailIdList = new ArrayList<String>();
+    private static ArrayList<String> validEmailIdList = new ArrayList<String>();
+    private static ArrayList<String> invalidEmailIdList = new ArrayList<String>();
 
 
-    public static void getUserByUsernameForE2E(String paramName, String paramValue) {
+    public static void search_for_the_given_user_by_userName(String paramName, String username) {
+        try {
 
-        //Call User API by username = "Samantha"
-        Response userResponse = UsersAPI.getUserByParam(paramName, paramValue);
-        ArrayList<Integer> idList = userResponse.path("id");
-
-        //Call Post API by userId
-        Response postResponse = PostsAPI.getPostByParam("userId", idList.get(0).toString());
-
-        //Convert Post API response to JAVA Object and iterate through each object instance to get Post id
-        for (PostAPIResponse PostAPIResponseInstance : postResponse.as(PostAPIResponse[].class)) {
-
-            //Call Comments API by PostId for each post
-            Response commentResponse = CommentsAPI.getCommentByParam("postId", PostAPIResponseInstance.getId().toString());
-
-            //Convert Comments API response to JAVA Object and iterate through each object instance to get email id
-            for (CommentAPIResponse CommentAPIResponseInstance : commentResponse.as(CommentAPIResponse[].class)) {
-
-                //Validate Email Id
-                testUtilInstance.validateEmailId(CommentAPIResponseInstance.getEmail());
+            LOGGER.info("Starting method: search_for_the_given_user_by_userName");
+            //Call User API by username = "Samantha"
+            Response userResponse = UsersAPI.get_User_By_Username("username", username);
+            for (UserAPIResponse userAPIResponseInstance : userResponse.as(UserAPIResponse[].class)) {
+                userId = userAPIResponseInstance.getId().toString();
             }
+        } catch (Exception e) {
+            LOGGER.error(e.toString() + e.getStackTrace()[1].toString());
+            Assert.fail(e.toString() + e.getStackTrace()[1].toString());
         }
+    }
 
+
+    public static void search_for_the_post_by_userId() {
+        try {
+
+            LOGGER.info("Starting method: search_for_the_post_by_userId");
+            Response postResponse = PostsAPI.get_Post_By_UserId("userId", userId);
+            for (PostAPIResponse PostAPIResponseInstance : postResponse.as(PostAPIResponse[].class)) {
+                postIdList.add(PostAPIResponseInstance.getId());
+            }
+            LOGGER.info("List of Post Ids: " + postIdList);
+        } catch (Exception e) {
+            LOGGER.error(e.toString() + e.getStackTrace()[1].toString());
+            Assert.fail(e.toString() + e.getStackTrace()[1].toString());
+        }
+    }
+
+
+    public static void fetch_the_comments_by_postId() {
+        try {
+
+            LOGGER.info("Starting method: fetch_the_comments_by_postId");
+            for (Integer postId : postIdList) {
+                Response commentResponse = CommentsAPI.get_Comment_By_PostId("postId", postId.toString());
+                if (commentResponse.getContentType().equalsIgnoreCase("application/json; charset=utf-8")) {
+                    for (CommentAPIResponse commentAPIResponse : commentResponse.as(CommentAPIResponse[].class)) {
+                        emailIdList.add(commentAPIResponse.getEmail());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.toString() + e.getStackTrace()[1].toString());
+            Assert.fail(e.toString() + e.getStackTrace()[1].toString());
+        }
+    }
+
+
+    public static void validate_emailId_for_each_comment() {
+        try {
+
+            LOGGER.info("Starting method: validate_emailId_for_each_comment");
+            for (String emailId : emailIdList) {
+                if (testUtilInstance.validateEmailId(emailId)) {
+                    validEmailIdList.add(emailId);
+                } else {
+                    invalidEmailIdList.add(emailId);
+                }
+            }
+            assertions.assertTrue(invalidEmailIdList.isEmpty(), "Invalid email id found");
+            LOGGER.info("List of all valid Email Ids: " + "\n" + validEmailIdList);
+            LOGGER.info("List of all invalid Email Ids: " + "\n" + invalidEmailIdList);
+
+        } catch (Exception e) {
+            LOGGER.error(e.toString() + e.getStackTrace()[1].toString());
+            Assert.fail(e.toString() + e.getStackTrace()[1].toString());
+        }
     }
 }

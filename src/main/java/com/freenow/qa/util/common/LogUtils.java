@@ -1,5 +1,6 @@
 package com.freenow.qa.util.common;
 
+import com.freenow.qa.listeners.ExtentReportListener;
 import com.freenow.qa.util.file.PropertiesUtils;
 
 import java.io.*;
@@ -17,7 +18,8 @@ import org.apache.log4j.Logger;
 
 public class LogUtils {
     private static LogUtils logUtilsInstance = null;
-    PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
+    private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
+    private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
     private Logger logger;
     private String logFilePath;
     private String fileName;
@@ -56,7 +58,7 @@ public class LogUtils {
 
         logger.info("INFO" + " " + currentTime + ": " + message);
         writeToLogFile("INFO" + " " + currentTime + ": " + message);
-
+        extentUtilInstance.getTest().info(message);
     }
 
 
@@ -97,9 +99,8 @@ public class LogUtils {
         logger.error("FAIL" + " " + currentTime + ": " + message);
         writeToLogFile("FAIL" + " " + currentTime + ": " + message);
         writeToLogFile("CODE-END");
+        extentUtilInstance.getTest().info(message);
         throw new TestFailedExceptionUtil(message + ". Test step failed..");
-
-
     }
 
 
@@ -111,6 +112,7 @@ public class LogUtils {
         Logger.getRootLogger().setLevel(Level.ERROR);
 
         logger.error("ERROR" + " " + currentTime + ": " + message);
+        extentUtilInstance.getTest().info(message);
         writeToLogFile("ERROR" + " " + currentTime + ": " + message);
 
     }

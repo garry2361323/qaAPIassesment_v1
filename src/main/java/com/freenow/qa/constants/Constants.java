@@ -6,9 +6,9 @@ public class Constants {
     public static final int HTTP_STATUS_CODE_405 = 405;
     public static final int HTTP_STATUS_CODE_204 = 204;
     public static final int MAX_NUM_OF_RETRY = 1;
-    public static final int HTTP_CONNECTION_TIMEOUT = 40000; //Timeunit in seconds
-    public static final int HTTP_SOCKET_TIMEOUT = 40000;
-    public static final int HTTP_CONNECTION_MANAGER_TIMEOUT = 40000;
+    public static final int HTTP_CONNECTION_TIMEOUT = 100000; //Timeunit in seconds
+    public static final int HTTP_SOCKET_TIMEOUT = 100000;
+    public static final int HTTP_CONNECTION_MANAGER_TIMEOUT = 100000;
 
 
 }

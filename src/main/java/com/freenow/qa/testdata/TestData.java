@@ -30,34 +30,34 @@ public class TestData {
         List<String> TestData;
 
         switch (method.getName()) {
-            case "getUserById":
+            case "get_User_By_Id":
                 TestData = jsonUtilInstance.readTestData("testdata", "User.id");
                 break;
 
-            case "getUserByUserName":
+            case "get_User_By_User_Name":
             case "executeE2ETest":
                 TestData = jsonUtilInstance.readTestData("testdata", "User.username");
                 break;
 
-            case "getPostById":
+            case "get_Post_By_Id":
                 TestData = jsonUtilInstance.readTestData("testdata", "Post.id");
                 break;
 
-            case "getPostByUserId":
+            case "get_Post_By_UserId":
                 TestData = jsonUtilInstance.readTestData("testdata", "Post.userId");
                 break;
 
-            case "getCommentById":
+            case "get_Comment_By_Id":
                 TestData = jsonUtilInstance.readTestData("testdata", "Comment.id");
                 break;
 
-            case "getCommentByPostId":
+            case "get_Comment_By_Post_Id":
                 TestData = jsonUtilInstance.readTestData("testdata", "Comment.postId");
                 break;
 
-            case "getUserByInvalidId":
-            case "getCommentsByInvalidId":
-            case "getPostByInvalidId":
+            case "get_User_By_Invalid_Id":
+            case "get_Post_By_Invalid_Id":
+            case "get_Comment_By_Invalid_Id":
                 TestData = jsonUtilInstance.readTestData("testdata", "InvalidId.id");
                 break;
 

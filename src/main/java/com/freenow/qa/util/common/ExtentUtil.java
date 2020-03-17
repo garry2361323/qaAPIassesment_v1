@@ -1,13 +1,12 @@
 package com.freenow.qa.util.common;
 
+import com.aventstack.extentreports.AnalysisStrategy;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,9 +47,10 @@ public class ExtentUtil {
     }
 
     public ExtentHtmlReporter getExtentHtmlReporter() {
-//        extentHtmlReporter.config().setTheme(Theme.DARK);
-//        extentHtmlReporter.config().setDocumentTitle("Free Now API Automation Test Results");
-//        extentHtmlReporter.config().setReportName("Free Now API Automation Test Results");
+        extentHtmlReporter.config().setTheme(Theme.DARK);
+        extentHtmlReporter.setAnalysisStrategy(AnalysisStrategy.TEST);
+        extentHtmlReporter.config().setDocumentTitle("Free Now API Automation Test");
+        extentHtmlReporter.config().setReportName("Free Now API Automation Test Results");
         extentHtmlReporter.loadConfig(System.getProperty("user.dir") + "/src/test/resources/extent-config.xml");
         return extentHtmlReporter;
     }
@@ -71,6 +71,7 @@ public class ExtentUtil {
         extentTestMap.put((int) Thread.currentThread().getId(), test);
         return test;
     }
+
 
     /**
      * This method copies artifacts necessary to make great extent report !

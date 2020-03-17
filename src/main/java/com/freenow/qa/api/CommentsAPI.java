@@ -29,15 +29,17 @@ public class CommentsAPI {
     static {
         endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
                 jsonUtilInstance.commentsEndpoint);
-        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+
     }
 
-    public static void getComments() {
+    public static void get_All_Comments() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         response = restUtilsInstance.sendGetRequest(endpointUsers);
     }
 
 
-    public static Response getCommentByParam(String paramName, String paramValue) {
+    public static Response get_Comment_By_Id(String paramName, String paramValue) {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);
         response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
@@ -45,7 +47,16 @@ public class CommentsAPI {
     }
 
 
-    public static void validateStatusCode(int statusCode) {
+    public static Response get_Comment_By_PostId(String paramName, String paramValue) {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(paramName, paramValue);
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
+        return response;
+    }
+
+
+    public static void validate_Response_StatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
     }
 
@@ -63,4 +74,21 @@ public class CommentsAPI {
     public static void doCommentDelete() {
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);
     }
+
+    public static void validate_CommentAPI_Response_Schema() {
+        testUtilInstance.validateResponseSchema(response, "CommentsAPIResponse.json");
+    }
+
+    public static void validate_Same_CommentId_Available_In_Response(String id) {
+        testUtilInstance.validateResponseAttributes(response, "id", Integer.parseInt(id));
+    }
+
+    public static void validate_Same_PostId_Available_In_Response(String postId) {
+        testUtilInstance.validateResponseAttributes(response, "postId", Integer.parseInt(postId));
+    }
+
+    public static void validate_Blank_Response() {
+        testUtilInstance.checkBlankResponse(response);
+    }
+
 }

@@ -29,16 +29,18 @@ public class PostsAPI {
     static {
         endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
                 jsonUtilInstance.postsEndpoint);
-        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+
     }
 
-    public static void getPosts() {
+    public static void get_All_Posts() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         response = restUtilsInstance.sendGetRequest(endpointUsers);
 
     }
 
 
-    public static Response getPostByParam(String paramName, String paramValue) {
+    public static Response get_Post_By_Id(String paramName, String paramValue) {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);
         response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
@@ -61,7 +63,30 @@ public class PostsAPI {
     }
 
 
-    public static void validateStatusCode(int statusCode) {
+    public static void validate_Response_StatusCode(int statusCode) {
         testUtilInstance.checkStatusIs(response, statusCode);
+    }
+
+    public static void validate_PostAPI_Response_Schema() {
+        testUtilInstance.validateResponseSchema(response, "PostAPIResponse.json");
+    }
+
+    public static void validate_Same_PostId_Available_In_Response(String id) {
+        testUtilInstance.validateResponseAttributes(response, "id", Integer.parseInt(id));
+    }
+
+    public static Response get_Post_By_UserId(String userId, String paramValue) {
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(userId, paramValue);
+        response = restUtilsInstance.sendGetRequestByParam(endpointUsers, paramMap);
+        return response;
+    }
+
+    public static void validate_Same_UserId_Available_In_Response(String userId) {
+        testUtilInstance.validateResponseAttributes(response, "userId", Integer.parseInt(userId));
+    }
+
+    public static void validate_Blank_Response() {
+        testUtilInstance.checkBlankResponse(response);
     }
 }

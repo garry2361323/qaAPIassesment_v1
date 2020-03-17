@@ -4,9 +4,6 @@ import com.freenow.qa.api.UsersAPI;
 import com.freenow.qa.constants.Constants;
 import com.freenow.qa.listeners.RetryListener;
 import com.freenow.qa.testdata.TestData;
-import com.freenow.qa.util.common.LogUtils;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,7 +12,7 @@ import java.lang.reflect.Method;
 
 public class UserAPITest {
 
-    private TestData testDataInstance = TestData.getInstance();
+    private static TestData testDataInstance = TestData.getInstance();
 
     @DataProvider
     public Object[] dataProviderMethod(Method method) {
@@ -23,27 +20,32 @@ public class UserAPITest {
     }
 
 
-    @Test(description = "Verify that user is able to get list of all users", groups = {"sanity"})
-    public void getUsers() {
-        UsersAPI.getUsers();
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_200);
+    @Test(description = "Verify that user is able to get list of all users and status code as 200", groups = {"sanity"})
+    public void get_All_Users() {
+        UsersAPI.get_All_Users();
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
+        UsersAPI.validate_UserAPI_Response_Schema();
     }
 
 
     @Test(dataProvider = "dataProviderMethod",
-            description = "Verify that user is able to get user details by valid id",
+            description = "Verify that user is able to get user details by valid id and status code as 200",
             groups = {"sanity"})
-    public void getUserById(String paramValue) {
-        UsersAPI.getUserByParam("id", paramValue);
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_200);
+    public void get_User_By_Id(String id) {
+        UsersAPI.get_User_By_Id("id", id);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
+        UsersAPI.validate_Same_UserId_Available_In_Response(id);
+        UsersAPI.validate_UserAPI_Response_Schema();
     }
 
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify that user is able to get user details by valid id",
             groups = {"sanity"})
-    public void getUserByUserName(String paramValue) {
-        UsersAPI.getUserByParam("username", paramValue);
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_200);
+    public void get_User_By_User_Name(String username) {
+        UsersAPI.get_User_By_Username("username", username);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
+        UsersAPI.validate_Same_UserName_Available_In_Response(username);
+        UsersAPI.validate_UserAPI_Response_Schema();
     }
 
 
@@ -51,31 +53,31 @@ public class UserAPITest {
             description = "Verify status code 204 is received, when user provides invalid id",
             retryAnalyzer = RetryListener.class,
             groups = {"sanity"})
-    public void getUserByInvalidId(String paramValue) {
-        UsersAPI.getUserByParam("id", paramValue);
-        UsersAPI.validateBlankResponse();
-        //   UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_204);
+    public void get_User_By_Invalid_Id(String id) {
+        UsersAPI.get_User_By_Id("id", id);
+        UsersAPI.validate_Blank_Response();
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
     }
 
-
+/*
     @Test(description = "Verify status code 405 is received, when user provides request Type as 'POST'", groups = {"negative"})
     public void doUserPost() {
         UsersAPI.doUserPost();
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_405);
     }
 
 
     @Test(description = "Verify status code 405 is received, when user provides request Type as 'PUT'", groups = {"negative"})
     public void doUserPut() {
         UsersAPI.doUserPut();
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_405);
     }
 
 
     @Test(description = "Verify status code 405 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
     public void doUserDelete() {
         UsersAPI.doUserDelete();
-        UsersAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_405);
     }
-
+*/
 }

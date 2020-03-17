@@ -25,7 +25,16 @@ public class CustomAssertionsUtil {
     public void assertEquals(int actual, int expected, String message) {
         try {
             Assert.assertEquals(actual, expected, message);
+        } catch (AssertionError e) {
 
+            LOGGER.error(message + " : " + e);
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    public void assertEquals(String actual, String expected, String message) {
+        try {
+            Assert.assertEquals(actual, expected, message);
         } catch (AssertionError e) {
 
             LOGGER.error(message + " : " + e);
@@ -37,6 +46,20 @@ public class CustomAssertionsUtil {
 
         try {
             Assert.assertTrue(condition, message);
+
+        } catch (AssertionError e) {
+
+            LOGGER.error(message + " : " + e);
+            Assert.fail(e.getMessage());
+
+        }
+
+    }
+
+    public void assertFalse(boolean condition, String message) {
+
+        try {
+            Assert.assertFalse(condition, message);
 
         } catch (AssertionError e) {
 
