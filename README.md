@@ -30,11 +30,11 @@ Method-2 - Running Via Command Line
 * Goto Project directory
 * Type following command
   ```
-  java org.testng.TestNG testng1.xml
+  mvn clean install
   ```
 * You also execute test cases based on groups
 	```
-	java org.testng.TestNG testng1.xml -groups "smoke,regression"
+	mvn test -Dgroups=smoke
 	```
 
 ## 	Running in parallel :
