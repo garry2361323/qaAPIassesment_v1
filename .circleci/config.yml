@@ -18,12 +18,19 @@ jobs:
           paths:
             - ~/.m2
           key: circleci-repo-{{ checksum "pom.xml" }}
+          
+      
       
       - run: 
             name: tests
             command: mvn test -DsuiteXmlFile="src/test/resources/testrunner/testng.xml"
       
-      
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
             
       - store_test_results:
           path: target/surefire-reports
