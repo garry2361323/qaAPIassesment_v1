@@ -3,7 +3,7 @@
 <suite name="FreeNow Test Suite">
     <groups>
         <run>
-            <include name="negative"/>
+            <exclude name="negative"/>
             <include name="smoke"/>
             <include name="regression"/>
             <include name="e2e"/>
