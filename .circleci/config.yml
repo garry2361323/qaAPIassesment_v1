@@ -2,14 +2,19 @@ version: 2
 jobs:
   build:
     
-    working_directory: ~/qaAPIassesment_v1
+#    working_directory: ~/qaAPIassesment_v1
 
     docker:
       - image: circleci/openjdk:8-jdk-stretch
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
+#        environment:
+#          POSTGRES_USER: root
+#          POSTGRES_DB: circle_test
 
+ environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+      
+      
     steps:
 
       - checkout
@@ -24,17 +29,11 @@ jobs:
             - ~/.m2
           key: circleci-qaAPIassesment_v1-{{ checksum "pom.xml" }}
       
-      - run: mvn package
+      - run: 
+            name: tests
+            command: mvn test -DsuiteXmlFile="src/test/resources/testrunner/testng.xml"
       
-      # run tests!
-      - run: mvn clean install
       
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            echo "my artifact file" > /tmp/artifact-1;
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
             
       - store_test_results:
           path: target/surefire-reports
