@@ -45,4 +45,4 @@ Method-2 - Running Via Command Line
 
 ###	Run Report
 Test Reports can be found at path \output\Test_Report.html (Automatically created after first run)
-![Image description]()
+![Image description](https://github.com/garry2361323/qaAPIassesment_v1/blob/master/src/test/resources/assets/Screenshot_TestReport.PNG)
