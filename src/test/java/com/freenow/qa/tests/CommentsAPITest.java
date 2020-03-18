@@ -55,25 +55,25 @@ public class CommentsAPITest {
         CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
     }
 
-    /*
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'POST'", groups = {"negative"})
+
+    @Test(description = "Verify status code 201 is received, when user provides request Type as 'POST'", groups = {"negative"})
     public void doCommentPost() {
         CommentsAPI.doCommentPost();
-        CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_201);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'PUT'", groups = {"negative"})
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'PUT'", groups = {"negative"})
     public void doCommentPut() {
         CommentsAPI.doCommentPut();
-        CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
     public void doCommentDelete() {
         CommentsAPI.doCommentDelete();
-        CommentsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
-*/
+
 }

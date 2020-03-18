@@ -56,25 +56,25 @@ public class PostsAPITest {
         PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
     }
 
-/*
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'POST'", groups = {"negative"})
+
+    @Test(description = "Verify status code 201 is received, when user provides request Type as 'POST'", groups = {"negative"})
     public void doPostPost() {
         PostsAPI.doPostPost();
-        PostsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_201);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'PUT'", groups = {"negative"})
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'PUT'", groups = {"negative"})
     public void doPostPut() {
         PostsAPI.doPostPut();
-        PostsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
     public void doPostDelete() {
         PostsAPI.doPostDelete();
-        PostsAPI.validateStatusCode(Constants.HTTP_STATUS_CODE_405);
+        PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
-*/
+
 }

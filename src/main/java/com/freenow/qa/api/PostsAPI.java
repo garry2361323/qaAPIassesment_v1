@@ -58,16 +58,22 @@ public class PostsAPI {
 
 
     public static void doPostPost() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }
 
 
     public static void doPostPut() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendPutRequest(endpointUsers);
     }
 
 
     public static void doPostDelete() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);
     }
 

@@ -59,25 +59,25 @@ public class UserAPITest {
         UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
     }
 
-/*
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'POST'", groups = {"negative"})
+
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'POST'", groups = {"negative"})
     public void doUserPost() {
         UsersAPI.doUserPost();
-        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_405);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'PUT'", groups = {"negative"})
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'PUT'", groups = {"negative"})
     public void doUserPut() {
         UsersAPI.doUserPut();
-        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_405);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
 
 
-    @Test(description = "Verify status code 405 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
+    @Test(description = "Verify status code 404 is received, when user provides request Type as 'DELETE'", groups = {"negative"})
     public void doUserDelete() {
         UsersAPI.doUserDelete();
-        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_405);
+        UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_404);
     }
-*/
+
 }

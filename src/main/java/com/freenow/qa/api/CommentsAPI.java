@@ -72,16 +72,22 @@ public class CommentsAPI {
 
 
     public static void doCommentPost() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }
 
 
     public static void doCommentPut() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendPutRequest(endpointUsers);
     }
 
 
     public static void doCommentDelete() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);
     }
 

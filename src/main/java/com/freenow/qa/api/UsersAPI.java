@@ -70,16 +70,22 @@ public class UsersAPI {
 
 
     public static void doUserPost() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendPostRequest(endpointUsers);
     }
 
 
     public static void doUserPut() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendPutRequest(endpointUsers);
     }
 
 
     public static void doUserDelete() {
+        LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
+        extentUtilInstance.getTest().assignCategory("negative");
         response = restUtilsInstance.sendDeleteRequest(endpointUsers);
     }
 
