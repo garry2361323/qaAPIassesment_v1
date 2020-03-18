@@ -29,20 +29,22 @@ public class EndToEndScenario {
     private static TestUtil testUtilInstance = TestUtil.getInstance();
     private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
     private static CustomAssertionsUtil assertions = CustomAssertionsUtil.getInstance();
-    private static Markup extentMarkup = null;
     private static String userId;
     private static ArrayList<Integer> postIdList = new ArrayList<Integer>();
     private static ArrayList<String> emailIdList = new ArrayList<String>();
     private static ArrayList<String> validEmailIdList = new ArrayList<String>();
     private static ArrayList<String> invalidEmailIdList = new ArrayList<String>();
+    private static UsersAPI usersAPIInstance = UsersAPI.getInstance();
+    private static PostsAPI postsAPIInstance = PostsAPI.getInstance();
+    private static CommentsAPI commentsAPIInstance = CommentsAPI.getInstance();
 
 
     public static void search_for_the_given_user_by_userName(String paramName, String username) {
         try {
-
+            extentUtilInstance.getTest().assignCategory("e2e");
             LOGGER.info("Starting method: search_for_the_given_user_by_userName");
             //Call User API by username = "Samantha"
-            Response userResponse = UsersAPI.get_User_By_Username("username", username);
+            Response userResponse = usersAPIInstance.get_User_By_Username("username", username);
             for (UserAPIResponse userAPIResponseInstance : userResponse.as(UserAPIResponse[].class)) {
                 userId = userAPIResponseInstance.getId().toString();
             }
@@ -57,7 +59,7 @@ public class EndToEndScenario {
         try {
 
             LOGGER.info("Starting method: search_for_the_post_by_userId");
-            Response postResponse = PostsAPI.get_Post_By_UserId("userId", userId);
+            Response postResponse = postsAPIInstance.get_Post_By_UserId("userId", userId);
             for (PostAPIResponse PostAPIResponseInstance : postResponse.as(PostAPIResponse[].class)) {
                 postIdList.add(PostAPIResponseInstance.getId());
             }
@@ -74,7 +76,7 @@ public class EndToEndScenario {
 
             LOGGER.info("Starting method: fetch_the_comments_by_postId");
             for (Integer postId : postIdList) {
-                Response commentResponse = CommentsAPI.get_Comment_By_PostId("postId", postId.toString());
+                Response commentResponse = commentsAPIInstance.get_Comment_By_PostId("postId", postId.toString());
                 if (commentResponse.getContentType().equalsIgnoreCase("application/json; charset=utf-8")) {
                     for (CommentAPIResponse commentAPIResponse : commentResponse.as(CommentAPIResponse[].class)) {
                         emailIdList.add(commentAPIResponse.getEmail());
@@ -100,8 +102,10 @@ public class EndToEndScenario {
                 }
             }
             assertions.assertTrue(invalidEmailIdList.isEmpty(), "Invalid email id found");
-            LOGGER.info("List of all valid Email Ids: " + "\n" + validEmailIdList);
-            LOGGER.info("List of all invalid Email Ids: " + "\n" + invalidEmailIdList);
+            LOGGER.info("List of all valid Email Ids: ");
+            LOGGER.info("" + validEmailIdList);
+            LOGGER.info("List of all invalid Email Ids: ");
+            LOGGER.info("" + invalidEmailIdList);
 
         } catch (Exception e) {
             LOGGER.error(e.toString() + e.getStackTrace()[1].toString());

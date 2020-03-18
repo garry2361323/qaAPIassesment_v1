@@ -19,7 +19,7 @@ public class CommentsAPITest {
 
 
     @Test(description = "Verify that user is able to get list of all comments and status code is 200",
-            groups = {"sanity"})
+            groups = {"smoke", "regression"})
     public void get_All_Comments() {
         CommentsAPI.get_All_Comments();
         CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -28,7 +28,7 @@ public class CommentsAPITest {
 
 
     @Test(dataProvider = "dataProviderMethod", description = "Verify that user is able to get Comments by Id and status code is 200",
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_Comment_By_Id(String id) {
         CommentsAPI.get_Comment_By_Id("id", id);
         CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -37,7 +37,7 @@ public class CommentsAPITest {
     }
 
     @Test(dataProvider = "dataProviderMethod", description = "Verify that user is able to get Comment by PostId and status code is 200",
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_Comment_By_Post_Id(String postId) {
         CommentsAPI.get_Comment_By_PostId("postId", postId);
         CommentsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -48,7 +48,7 @@ public class CommentsAPITest {
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify status code is 200 and blank response is received, when user provides invalid id",
             retryAnalyzer = RetryListener.class,
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_Comment_By_Invalid_Id(String id) {
         CommentsAPI.get_Comment_By_Id("id", id);
         CommentsAPI.validate_Blank_Response();

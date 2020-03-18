@@ -20,7 +20,7 @@ public class UserAPITest {
     }
 
 
-    @Test(description = "Verify that user is able to get list of all users and status code as 200", groups = {"sanity"})
+    @Test(description = "Verify that user is able to get list of all users and status code as 200", groups = {"smoke", "regression"})
     public void get_All_Users() {
         UsersAPI.get_All_Users();
         UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -30,7 +30,7 @@ public class UserAPITest {
 
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify that user is able to get user details by valid id and status code as 200",
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_User_By_Id(String id) {
         UsersAPI.get_User_By_Id("id", id);
         UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -40,7 +40,7 @@ public class UserAPITest {
 
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify that user is able to get user details by valid id",
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_User_By_User_Name(String username) {
         UsersAPI.get_User_By_Username("username", username);
         UsersAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -52,7 +52,7 @@ public class UserAPITest {
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify status code 204 is received, when user provides invalid id",
             retryAnalyzer = RetryListener.class,
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_User_By_Invalid_Id(String id) {
         UsersAPI.get_User_By_Id("id", id);
         UsersAPI.validate_Blank_Response();

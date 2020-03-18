@@ -23,22 +23,34 @@ public class UsersAPI {
     private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
     private static GetEnvURL getEnvURLInstance = GetEnvURL.getInstance();
     private static LogUtils LOGGER = LogUtils.getInstance(UsersAPI.class);
+    private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
+    private static UsersAPI usersAPIInstance = null;
 
     static {
         endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
                 jsonUtilInstance.usersEndpoint);
     }
 
+    public static UsersAPI getInstance() {
+
+        if (usersAPIInstance == null)
+            usersAPIInstance = new UsersAPI();
+
+        return usersAPIInstance;
+    }
 
     public static void get_All_Users() {
 
+        extentUtilInstance.getTest().assignCategory("smoke", "regression");
         LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         response = restUtilsInstance.sendGetRequest(endpointUsers);
+
     }
 
 
     public static Response get_User_By_Id(String paramName, String paramValue) {
 
+        extentUtilInstance.getTest().assignCategory("regression");
         LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);
@@ -48,7 +60,7 @@ public class UsersAPI {
 
 
     public static Response get_User_By_Username(String paramName, String paramValue) {
-
+        extentUtilInstance.getTest().assignCategory("regression");
         LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);

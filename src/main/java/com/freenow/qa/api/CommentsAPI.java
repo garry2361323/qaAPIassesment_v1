@@ -1,9 +1,6 @@
 package com.freenow.qa.api;
 
-import com.freenow.qa.util.common.GetEnvURL;
-import com.freenow.qa.util.common.LogUtils;
-import com.freenow.qa.util.common.RestUtil;
-import com.freenow.qa.util.common.TestUtil;
+import com.freenow.qa.util.common.*;
 import com.freenow.qa.util.file.JsonUtil;
 import com.freenow.qa.util.file.PropertiesUtils;
 import io.restassured.response.Response;
@@ -25,6 +22,8 @@ public class CommentsAPI {
     private static PropertiesUtils propertiesUtilsInstance = PropertiesUtils.getInstance();
     private static GetEnvURL getEnvURLInstance = GetEnvURL.getInstance();
     private static LogUtils LOGGER = LogUtils.getInstance(CommentsAPI.class);
+    private static ExtentUtil extentUtilInstance = ExtentUtil.getInstance();
+    private static CommentsAPI commentsAPIInstance = null;
 
     static {
         endpointUsers = getEnvURLInstance.getBaseUrl() + jsonUtilInstance.readConfigValue(propertiesUtilsInstance.configFilePath,
@@ -32,13 +31,23 @@ public class CommentsAPI {
 
     }
 
+    public static CommentsAPI getInstance() {
+
+        if (commentsAPIInstance == null)
+            commentsAPIInstance = new CommentsAPI();
+
+        return commentsAPIInstance;
+    }
+
     public static void get_All_Comments() {
+        extentUtilInstance.getTest().assignCategory("smoke", "regression");
         LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         response = restUtilsInstance.sendGetRequest(endpointUsers);
     }
 
 
     public static Response get_Comment_By_Id(String paramName, String paramValue) {
+        extentUtilInstance.getTest().assignCategory("regression");
         LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);
@@ -48,6 +57,7 @@ public class CommentsAPI {
 
 
     public static Response get_Comment_By_PostId(String paramName, String paramValue) {
+        extentUtilInstance.getTest().assignCategory("regression");
         LOGGER.info("Setting API_ENDPOINT as :" + endpointUsers);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         paramMap.put(paramName, paramValue);

@@ -9,8 +9,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.util.Arrays;
-import java.util.HashMap;
 
 /***
  * TestNG listener class with below functions:
@@ -59,7 +57,7 @@ public class ExtentReportListener implements ITestListener {
 
         //Nullifying RestUtil Instance
         restUtilsInstance.resetRestAssured();
-
+        //Marking Test as Pass in extent report
         extentUtilInstance.getTest().log(Status.PASS, "");
     }
 
@@ -67,6 +65,7 @@ public class ExtentReportListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
 
         LOGGER.info("Test failed: " + result.getName() + "\n\n");
+        //Marking Test as Fail in extent report
         extentUtilInstance.getTest().log(Status.FAIL, "");
     }
 
@@ -74,6 +73,7 @@ public class ExtentReportListener implements ITestListener {
     public void onTestSkipped(ITestResult result) {
 
         LOGGER.info("Test skipped: " + result.getName() + "\n\n");
+        //Marking Test as Skip in extent report
         extentUtilInstance.getTest().log(Status.SKIP, "");
 
     }
@@ -95,6 +95,6 @@ public class ExtentReportListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         extentUtilInstance.endTest();
-//      extentUtilInstance.createAssetsDirectory();
+//        extentUtilInstance.createAssetsDirectory();
     }
 }

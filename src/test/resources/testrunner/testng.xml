@@ -4,7 +4,8 @@
     <groups>
         <run>
             <exclude name="negative"/>
-            <include name="sanity"/>
+            <include name="smoke"/>
+            <include name="regression"/>
             <include name="e2e"/>
         </run>
     </groups>

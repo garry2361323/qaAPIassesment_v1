@@ -19,7 +19,7 @@ public class PostsAPITest {
 
 
     @Test(description = "Verify that user is able to get list of all posts",
-            groups = {"sanity"})
+            groups = {"smoke", "regression"})
     public void get_All_Posts() {
         PostsAPI.get_All_Posts();
         PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -28,7 +28,7 @@ public class PostsAPITest {
 
 
     @Test(dataProvider = "dataProviderMethod", description = "Verify that user is able to get post by valid post id",
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_Post_By_Id(String id) {
         PostsAPI.get_Post_By_Id("id", id);
         PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -37,7 +37,7 @@ public class PostsAPITest {
     }
 
     @Test(dataProvider = "dataProviderMethod", description = "Verify that user is able to get post by valid user id",
-            groups = "sanity")
+            groups = {"regression"})
     public void get_Post_By_UserId(String userId) {
         PostsAPI.get_Post_By_UserId("userId", userId);
         PostsAPI.validate_Response_StatusCode(Constants.HTTP_STATUS_CODE_200);
@@ -49,7 +49,7 @@ public class PostsAPITest {
     @Test(dataProvider = "dataProviderMethod",
             description = "Verify status code 200 and a blank response is received, when user provides invalid id",
             retryAnalyzer = RetryListener.class,
-            groups = {"sanity"})
+            groups = {"regression"})
     public void get_Post_By_Invalid_Id(String id) {
         PostsAPI.get_Post_By_Id("id", id);
         PostsAPI.validate_Blank_Response();
