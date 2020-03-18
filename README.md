@@ -40,7 +40,7 @@ Method-2 - Running Via Command Line
 ## 	Running in parallel :
 * When running tests in parallel, supply following additional mandatory attributes
 	```
-	java org.testng.TestNG testng1.xml -groups "smoke,regression" -parallel classes
+	mvn test -Dparallel=classes
 	```
 
 ###	Run Report
