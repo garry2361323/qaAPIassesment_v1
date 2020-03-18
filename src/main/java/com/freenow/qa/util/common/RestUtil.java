@@ -118,7 +118,7 @@ public class RestUtil {
         apiUtilsInstance = null;
     }
 
-
+    /*Set time out for every Rest request*/
     public void setTimeOut() {
         RestAssured.config = RestAssuredConfig.config().httpClient(HttpClientConfig.httpClientConfig().
                 setParam("http.connection.timeout", Constants.HTTP_CONNECTION_TIMEOUT).

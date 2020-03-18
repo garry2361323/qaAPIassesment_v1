@@ -23,6 +23,7 @@ public class GetEnvURL {
         return getEnvURLInstance;
     }
 
+    /*Get the serviceBaseUrl based on env name from config.json*/
     public String getBaseUrl() {
         String serviceBaseUrl = null;
 

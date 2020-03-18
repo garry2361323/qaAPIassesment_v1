@@ -45,6 +45,8 @@ public class EndToEndScenario {
             LOGGER.info("Starting method: search_for_the_given_user_by_userName");
             //Call User API by username = "Samantha"
             Response userResponse = usersAPIInstance.get_User_By_Username("username", username);
+
+            /*Get user id through UserAPIResponse POJO class*/
             for (UserAPIResponse userAPIResponseInstance : userResponse.as(UserAPIResponse[].class)) {
                 userId = userAPIResponseInstance.getId().toString();
             }
@@ -60,6 +62,8 @@ public class EndToEndScenario {
 
             LOGGER.info("Starting method: search_for_the_post_by_userId");
             Response postResponse = postsAPIInstance.get_Post_By_UserId("userId", userId);
+
+            /*Iterate through each post and create the list of post ids, the post id is got from PostAPIResponse POJO class*/
             for (PostAPIResponse PostAPIResponseInstance : postResponse.as(PostAPIResponse[].class)) {
                 postIdList.add(PostAPIResponseInstance.getId());
             }
@@ -77,7 +81,11 @@ public class EndToEndScenario {
             LOGGER.info("Starting method: fetch_the_comments_by_postId");
             for (Integer postId : postIdList) {
                 Response commentResponse = commentsAPIInstance.get_Comment_By_PostId("postId", postId.toString());
+
+                /*For few post ids valid comment response is not coming, if condition to check the same*/
                 if (commentResponse.getContentType().equalsIgnoreCase("application/json; charset=utf-8")) {
+
+                    /*Add all the email ids for all the comments under each post in a list*/
                     for (CommentAPIResponse commentAPIResponse : commentResponse.as(CommentAPIResponse[].class)) {
                         emailIdList.add(commentAPIResponse.getEmail());
                     }
@@ -94,6 +102,8 @@ public class EndToEndScenario {
         try {
 
             LOGGER.info("Starting method: validate_emailId_for_each_comment");
+
+            /*Iterate through each mail ids and validate*/
             for (String emailId : emailIdList) {
                 if (testUtilInstance.validateEmailId(emailId)) {
                     validEmailIdList.add(emailId);
@@ -101,12 +111,14 @@ public class EndToEndScenario {
                     invalidEmailIdList.add(emailId);
                 }
             }
-            assertions.assertTrue(invalidEmailIdList.isEmpty(), "Invalid email id found");
+
             LOGGER.info("List of all valid Email Ids: ");
             LOGGER.info("" + validEmailIdList);
             LOGGER.info("List of all invalid Email Ids: ");
             LOGGER.info("" + invalidEmailIdList);
 
+            /*If even a single invalid mail id encountered, assert the execution*/
+            assertions.assertTrue(invalidEmailIdList.isEmpty(), "Invalid email id found");
         } catch (Exception e) {
             LOGGER.error(e.toString() + e.getStackTrace()[1].toString());
             Assert.fail(e.toString() + e.getStackTrace()[1].toString());

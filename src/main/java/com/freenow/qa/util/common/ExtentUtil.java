@@ -5,8 +5,6 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +43,10 @@ public class ExtentUtil {
         }
         return extentReports;
     }
+
+    /**
+     * This method returns configured ExtentHtmlReporter instance
+     */
 
     public ExtentHtmlReporter getExtentHtmlReporter() {
         extentHtmlReporter.config().setTheme(Theme.DARK);

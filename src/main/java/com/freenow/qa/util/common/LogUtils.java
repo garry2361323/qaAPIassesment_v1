@@ -1,17 +1,16 @@
 package com.freenow.qa.util.common;
 
-import com.freenow.qa.listeners.ExtentReportListener;
-import com.freenow.qa.util.file.PropertiesUtils;
 
+import com.freenow.qa.util.file.PropertiesUtils;
 import java.io.*;
 import java.util.Calendar;
 import java.util.Date;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
  * This utility class provides instance of LogUtils for Logging capabilities
+ * Wrapper class to execute custom behaviour on Logger methods
  *
  * @author Gaurav Sharma
  */

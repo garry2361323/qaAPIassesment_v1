@@ -1,8 +1,6 @@
 package com.freenow.qa.util.common;
 
-import com.freenow.qa.pojo.CommentAPIResponse;
-import com.freenow.qa.pojo.PostAPIResponse;
-import com.freenow.qa.pojo.userAPIpojo.UserAPIResponse;
+
 import com.freenow.qa.util.file.FileUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
@@ -20,6 +18,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
  *
  * @author Gaurav Sharma
  */
+
 public class TestUtil {
     private static CustomAssertionsUtil assertions = CustomAssertionsUtil.getInstance();
     private static TestUtil testUtilInstance = null;
@@ -70,10 +69,10 @@ public class TestUtil {
         }
     }
 
+    /*Validate the Response JSON schema against schema definition present at src/main/java/com/freenow/qa/schema
+     * using Rest Assured JsonSchemaValidator */
     public void validateResponseSchema(Response res, String schemaName) {
-
         try {
-
             String schema = FileUtil.readFromFile(System.getProperty("user.dir") + "/src/main/java/com/freenow/qa/schema/" + schemaName);
             res.then().assertThat().body(matchesJsonSchema(schema));
             LOGGER.info("Response Schema Validation is PASS");
@@ -88,6 +87,7 @@ public class TestUtil {
         }
     }
 
+    /*Validate a given element value is equal to response*/
     public void validateResponseAttributes(Response res, String paramName, String paramValue) {
         ArrayList<String> expected = null;
         try {
@@ -100,6 +100,7 @@ public class TestUtil {
         }
     }
 
+    /*Validate a given element value is equal to response*/
     public void validateResponseAttributes(Response res, String paramName, int paramValue) {
         ArrayList<Integer> expected = null;
         try {
