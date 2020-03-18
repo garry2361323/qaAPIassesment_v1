@@ -14,7 +14,7 @@ import java.util.List;
 public class TestData {
 
     private static TestData testDataInstance = null;
-    JsonUtil jsonUtilInstance = JsonUtil.getInstance();
+    private static JsonUtil jsonUtilInstance = JsonUtil.getInstance();
 
     public static TestData getInstance() {
 
@@ -25,7 +25,7 @@ public class TestData {
     }
 
 
-    public List<String> getTestData(Method method) {
+    public static List<String> getTestData(Method method) {
 
         List<String> TestData;
 

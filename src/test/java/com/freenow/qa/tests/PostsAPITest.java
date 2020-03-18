@@ -10,11 +10,10 @@ import java.lang.reflect.Method;
 
 public class PostsAPITest {
 
-    private TestData testDataInstance = TestData.getInstance();
 
     @DataProvider
     public Object[] dataProviderMethod(Method method) {
-        return testDataInstance.getTestData(method).toArray();
+        return TestData.getTestData(method).toArray();
     }
 
 

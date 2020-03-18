@@ -19,11 +19,10 @@ import java.lang.reflect.Method;
  */
 public class EndToEndTest {
 
-    private TestData testDataInstance = TestData.getInstance();
 
     @DataProvider
     public Object[] dataProviderMethod(Method method) {
-        return testDataInstance.getTestData(method).toArray();
+        return TestData.getTestData(method).toArray();
     }
 
     @Test(dataProvider = "dataProviderMethod", groups = "e2e",
