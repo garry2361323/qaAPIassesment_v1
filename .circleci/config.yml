@@ -1,22 +1,39 @@
 version: 2.1
-
-orbs:
-  maven: circleci/maven@0.0.12
-
-workflows:
-  maven_test:
-    jobs:
-      - maven/test # checkout, build, test, and upload test results
-steps:
+jobs:
+  build:    
+    #working_directory: ~/repo
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m      
+    steps:
+      - checkout
+      - restore_cache:
+          key: circleci-repo-{{ checksum "pom.xml" }}
+      
+      - run: mvn dependency:go-offline
+      
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: circleci-repo-{{ checksum "pom.xml" }}
+          
+      
+      
+      - run: 
+            name: tests
+            command: mvn test -DsuiteXmlFile="src/test/resources/testrunner/testng.xml"
+      
       - run:
           name: Save test results
           command: |
             mkdir -p ~/test-results/junit/
             find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
           when: always
+            
       - store_test_results:
-          path: ~/test-results
+          path: target/surefire-reports
+      
       - store_artifacts:
-          path: ~/test-results/junit
-          # run tests!
-      - run: mvn test
+          path: target/
