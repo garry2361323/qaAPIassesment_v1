@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     
-#    working_directory: ~/qaAPIassesment_v1
+    working_directory: ~/repo
 
     docker:
       - image: circleci/openjdk:8-jdk-stretch
@@ -20,14 +20,14 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: circleci-qaAPIassesment_v1-{{ checksum "pom.xml" }}
+          key: circleci-repo-{{ checksum "pom.xml" }}
       
       - run: mvn dependency:go-offline
       
       - save_cache:
           paths:
             - ~/.m2
-          key: circleci-qaAPIassesment_v1-{{ checksum "pom.xml" }}
+          key: circleci-repo-{{ checksum "pom.xml" }}
       
       - run: 
             name: tests
@@ -39,4 +39,4 @@ jobs:
           path: target/surefire-reports
       
       - store_artifacts:
-          path: target/qaAPIassesment_v1-0.0.1-SNAPSHOT.jar
+          path: target/repo-SNAPSHOT.jar
