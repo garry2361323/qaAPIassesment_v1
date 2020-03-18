@@ -22,8 +22,8 @@ jobs:
       
       
       - run: 
-            name: tests
-            command: mvn test -DsuiteXmlFile="src/test/resources/testrunner/testng.xml"
+            name: Build
+            command: mvn clean install
       - run:
             name: echo
             command: echo 'CIRCLE_WORKING_DIRECTORY="${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}"' >> $BASH_ENV
