@@ -26,7 +26,7 @@ jobs:
             command: mvn test -DsuiteXmlFile="src/test/resources/testrunner/testng.xml"
       - run:
             name: echo
-            command: echo $CIRCLE_WORKING_DIRECTORY
+            command: echo 'CIRCLE_WORKING_DIRECTORY="${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}"' >> $BASH_ENV
       - run:
           name: Save test results
           command: |
