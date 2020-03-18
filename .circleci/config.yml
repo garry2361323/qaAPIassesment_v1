@@ -2,6 +2,7 @@ version: 2.1
 jobs:
   build:    
     #working_directory: ~/repo
+    $ echo $PWD
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     environment:
@@ -24,7 +25,9 @@ jobs:
       - run: 
             name: tests
             command: mvn test -DsuiteXmlFile="src/test/resources/testrunner/testng.xml"
-      
+      - run:
+            name: echo
+            command: echo $CIRCLE_WORKING_DIRECTORY
       - run:
           name: Save test results
           command: |
