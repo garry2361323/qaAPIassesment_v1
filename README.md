@@ -20,4 +20,29 @@ This framework uses TestNG with RestAssured for testing.
 * Under "src/test/resources/common.properties" specify environment i.e. QA or UAT
 * Under "src/test/resources/config.json" specify API baseURI and endpoints for QA and UAT
 
-Method#1 - Running Via IDE
+Method-1 - Running Via IDE
+* Go to "src/test/resources/testrunner"
+* Right click on testng.xml > Run As> TestNG Test to run smoke, negative, regression and end to end scenarios.
+* Right click on testngEnd2End.xml > Run As> TestNG Test to run only end to end scenarios.
+
+Method-2 - Running Via Command Line
+* Open "Command Prompt"
+* Goto Project directory
+* Type following command
+  ```
+  java org.testng.TestNG testng1.xml
+  ```
+* You also execute test cases based on groups
+	```
+	java org.testng.TestNG testng1.xml -groups "smoke,regression"
+	```
+
+## 	Running in parallel :
+* When running tests in parallel, supply following additional mandatory attributes
+	```
+	java org.testng.TestNG testng1.xml -groups "smoke,regression" -parallel classes
+	```
+
+###	Run Report
+Test Reports can be found at path \output\Test_Report.html (Automatically created after first run)
+![Image description]()
